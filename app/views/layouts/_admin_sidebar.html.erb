@@ -1,0 +1,48 @@
+<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+        <div class="sidebar-brand-icon rotate-n-15">
+          <i class="fa fa-laugh-wink"></i>
+        </div>
+        <div class="sidebar-brand-text mx-3"><%= t "header.Admin_panel" %><sup>2</sup></div>
+      </a>
+
+      <hr class="sidebar-divider my-0">
+
+      <li class="nav-item active">
+        <a class="nav-link" href="index.html">
+          <i class="fa fa-fw fa-tachometer-alt"></i>
+          <label><%= t "dashboard" %></label></a>
+      </li>
+
+      <hr class="sidebar-divider">
+
+      <div class="sidebar-heading">
+      </div>
+
+      <li class="nav-item">
+        <%= link_to admin_users_path, class: "nav-link collapsed" do %>
+          <i class="fa fa-fw fa-user"></i>
+          <label><%= t "users" %></label>
+        <% end %>
+      </li>
+
+      <li class="nav-item">
+        <%= link_to admin_courses_path, class: "nav-link collapsed" do %>
+          <i class="fa fa-fw fa-cog"></i>
+          <label><%= t"courses" %></label>
+        <% end %>
+      </li>
+      <li class="nav-item">
+        <%= link_to admin_words_path, class: "nav-link" do %>
+          <i class="fa fa-fw fa-file-word-o"></i>
+          <label><%= t "word.Manage_words" %></label>
+        <% end %>
+      </li>
+      <li class="nav-item">
+        <%= link_to admin_questions_path, class: "nav-link" do %>
+          <i class="fa fa-fw fa-question-circle"></i>
+          <label><%= t "question.Manage_questions" %></label>
+        <% end %>
+      </li>
+    </ul>

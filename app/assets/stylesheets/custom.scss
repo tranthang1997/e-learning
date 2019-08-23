@@ -1,0 +1,76 @@
+body .sidebar .nav-item .nav-link[data-toggle=collapse]:after {
+  font-family: FontAwesome;
+}
+.img-profile {
+  max-width: 40px;
+}
+.dropdown-menu-user {
+  right: 0 !important;
+  width: auto !important;
+  left: auto !important;
+}
+.custom-file-input {
+  min-width: 14rem;
+  max-width: 100%;
+  height: 2.5rem;
+  margin: 0;
+  opacity: 0;
+}
+.pagination a, .pagination span.current, .pagination span.gap {
+  float: left;
+  padding: 0 14px;
+  line-height: 38px;
+  text-decoration: none;
+  background-color: white;
+  border: 1px solid #DDD;
+  border-left-width: 0;
+}
+
+.pagination {
+  border-left: 1px solid #ddd;
+
+  .first {
+    padding: 0;
+    float: none;
+    border: none;
+  }
+
+  .prev {
+    padding: 0;
+    float: none;
+    border: none;
+  }
+
+  .page {
+    padding: 0;
+    float: none;
+    border: none;
+  }
+
+  .next {
+    padding: 0;
+    float: none;
+    border: none;
+  }
+
+  .last {
+    padding: 0;
+    float: none;
+    border: none;
+  }
+}
+.stt {
+  width: 5%;
+}
+.countdown {
+  position: fixed;
+  top: 100px;
+  right: 20px;
+  border: solid 2px;
+  border-radius: 5px;
+  padding: 20px;
+  z-index: 1;
+}
+.card-header.p-0 button{
+  text-decoration: none;
+}

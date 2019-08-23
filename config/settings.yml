@@ -1,0 +1,36 @@
+user:
+  min_password_length: 0
+  max_password_length: 20
+  user_per_page: 20
+  user_follower_per_page: 1
+  user_followed_per_page: 10
+  user_high_score: 10
+  avatar_list_follow: "20x20"
+  avatar_list_follow_profile: "30x30"
+omniauth:
+  facebook: "facebook"
+  google_oauth2: "google_oauth2"
+course:
+  course_per_page: 20
+word:
+  word_per_page: 1
+words:
+  word_per_page: 10
+  max_length: 60
+question:
+  questions_number: 20
+time:
+  time_do_lesson: 600
+lesson:
+  submited: 1
+date:
+  format: "%Y-%m-%d"
+zero_records: 0
+result:
+  result_per_page: 10
+words:
+  word_per_page: 10
+  max_length: 60
+questions:
+  question_per_page: 5
+  number_answer: 4

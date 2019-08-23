@@ -1,0 +1,12 @@
+<div class="row fields mb-3">
+  <%= f.label :content, t("question.Answer"), class: "mt-2"%>
+  <div class="col-md-6">
+    <%= f.text_field :content, class: "form-control" %>
+    <%= f.hidden_field :_destroy %>
+  </div>
+  <div class="col-md-2 mt-1">
+    <%= link_to "#", onClick: "removeField(this); return false;" do %>
+      <i class="fa fa-times" style="color: red; font-size: 30px"></i>
+    <% end %>
+  </div>
+</div>

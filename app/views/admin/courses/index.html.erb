@@ -1,0 +1,46 @@
+<%= provide :title, t("course.list") %>
+<%= link_to t("course.create_course"), new_admin_course_url, class: "btn btn-primary" %>
+<hr class="invisible">
+<div class="card shadow mb-4">
+  <div class="card-header py-3">
+    <h6 class="m-0 font-weight-bold text-primary"><%= t "course.list" %></h6>
+  </div>
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+        <thead>
+        <tr class="text-center">
+          <th><%= t "course.stt" %></th>
+          <th><%= t "course.name" %></th>
+          <th><%= t "course.image" %></th>
+          <th><%= t "course.description" %></th>
+          <th><%= t "course.action" %></th>
+        </tr>
+        </thead>
+        <tbody>
+        <% stt = get_stt params[:page].to_i, Settings.course.course_per_page %>
+        <% @courses.each do |course| %>
+          <tr>
+            <td class="stt text-center"><%= stt %></td>
+            <td><%= course.name %></td>
+            <td>
+              <%= image_tag course.image , class: "mx-auto img-fluid img-circle d-block", alt: "avatar" %>
+            </td>
+            <td><%= course.description %></td>
+            <td class="text-center">
+              <%= link_to edit_admin_course_path(course) do %>
+              <i class="fa fa-pencil fa-fw fa-update"></i>
+              <% end %>
+              <%= link_to [:admin, course], method: :delete, data:{ confirm: t("are_u_sure")} do %>
+              <i class="fa fa-trash-o fa-fw fa-delete"></i>
+              <% end %>
+            </td>
+          </tr>
+          <% stt += 1 %>
+        <% end %>
+        </tbody>
+      </table> 
+      <%= paginate @courses %>
+    </div>
+  </div>
+</div>

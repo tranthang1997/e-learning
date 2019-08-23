@@ -1,0 +1,27 @@
+<%= provide :title, t("search_course") %>
+<div class="container py-3">
+  <div>
+    <h4><b><%= t "result_for" %> <%= params[:q][:name_or_description_cont] %></b></h4>
+  </div>
+  <div class="row">
+    <div class="col-12 col-sm-12 col-md-12 list-courses">
+      <div class="row">
+        <% @courses.each do |course| %>
+          <div class="card col-sm-6 col-md-3 py-2">
+            <%= image_tag course.image, class: "card-img-top w-100" %>
+            <div class="card-body p-0">
+              <h5 class="card-title mt-2"><%= course.name %></h5>
+              <p class="card-text"><%= course.description %></p>
+              <div class="d-flex">
+                <%= link_to t("home_page.Word_List"), learn_words_path(course.id), class: "btn btn-success mx-1 w-50" %>
+                <%= link_to t("home_page.Start_Lesson"), do_lesson_path(course.id), class: "btn btn-success mx-1 w-50",
+                            data:{ confirm: t("lesson.confirm_lesson")}%>
+              </div>
+            </div>
+          </div>
+        <% end %>
+        <%= paginate @courses%>
+      </div>
+    </div>
+  </div>
+</div>

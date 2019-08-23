@@ -1,0 +1,83 @@
+<div class="container">
+  <div class="row my-2">
+    <div class="col-lg-4 order-lg-1 text-center">
+      <div class="target">
+        <% if @user.avatar.attached?  %>
+          <%= image_tag @user.avatar , class: "mx-auto img-fluid img-circle d-block", alt: "avatar" %>
+        <% else %>
+          <%= image_tag ActionController::Base.helpers.asset_path("default.png") , class: "mx-auto img-fluid img-circle d-block", alt: "avatar" %>
+        <% end %>
+        <br><label><h4><b><%= @user.name %></b></h4></label>
+        <% if current_user.current_user? @user %>
+          <%= link_to  edit_user_registration_path do %>
+            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+          <% end %>
+        <% end %>
+        <br>
+        <% unless current_user.current_user? @user %>
+          <% if current_user.following? current_user.id, @user.id %>
+            <%= link_to t("user.Follow"), follow_path(@user.id), class: "btn btn-success" %>
+          <% else %>
+            <%= link_to t("user.Unfollow"), unfollow_path(@user.id), class: "btn btn-danger" %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+    <div class="col-lg-8 order-lg-2">
+      <ul class="nav nav-tabs">
+        <li class="nav-item">
+          <a href="" data-target="#profile" data-toggle="tab" class="nav-link active"><%= t "user.profile" %></a>
+        </li>
+      </ul>
+      <div class="tab-content py-4">
+        <div class="tab-pane active" id="profile">
+          <h5 class="mb-3 font-weight-bold"><%= t "user.user_profile" %></h5>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="user-name d-flex">
+                <label><%= t "user.name" %>:&nbsp;</label>
+                <label>
+                  <%= @user.name %>
+                </label>
+              </div>
+              <div class="user-email d-flex">
+                <label><%= t "user.email" %>:&nbsp;</label>
+                <label>
+                <%= @user.email %>
+              </label>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <h5 class="mt-2 font-weight-bold"><span class="fa fa-clock-o ion-clock float-right"></span><%= t "user.recent_activity" %></h5>
+              <table class="table table-sm table-hover table-striped">
+                <thead>
+                  <th><%= t "courses" %></th>
+                  <th><%= t "score" %></th>
+                  <th><%= t "date" %></th>
+                </thead>
+                <tbody>
+                <% @activities.each do |ac| %>
+                  <tr>
+                    <td>
+                      <% if current_user.current_user? @user %>
+                        <%= link_to view_result_path(params[:id], ac.course_id, ac.id) do%>
+                          <%= ac.course_name %>
+                        <% end %>
+                      <% else %>
+                        <%= ac.course_name %>
+                      <% end %>
+                    </td>
+                    <td><%= ac.grade %></td>
+                    <td><%= ac.created_at.strftime Settings.date.format %></td>
+                  </tr>
+                <% end %>
+                </tbody>
+              </table>
+              <%= paginate @activities %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

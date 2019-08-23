@@ -1,0 +1,10 @@
+<%= provide :title, t("course.edit_course") %>
+<div class="card shadow mb-4">
+  <div class="card-header py-3">
+    <hr class="invisible">
+    <h6 class="m-0 font-weight-bold text-primary"><%= t "course.edit_course" %></h6>
+  </div>
+  <div class="card-body">
+    <%= render "admin/courses/form" %>
+  </div>
+</div>

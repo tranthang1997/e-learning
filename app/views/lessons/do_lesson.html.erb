@@ -1,0 +1,55 @@
+<%= provide :title, t("lesson.do_lesson") %>
+<div class="card shadow mb-4 col-lg-10 col-md-10 col-sm-12 mt-5 m-auto">
+  <div class="card-header py-3">
+    <hr class="invisible">
+    <h6 class="m-auto font-weight-bold text-primary"><%= @course.name %></h6>
+  </div>
+  <%= csrf_meta_tags %>
+  <% unless @lesson.question_list.blank? %>
+    <div class="countdown"></div>
+    <div class="card-body text-gray-900">
+      <div class="box-part text-left">
+        <%= hidden_field_tag :course_id, @course.id %>
+        <%= hidden_field_tag :time, @lesson.time %>
+        <%= hidden_field_tag :user_id, current_user.id %>
+        <% stt = 0 %>
+        <% @lesson.question_list.each do |question| %>
+          <div class="question" data-question-id="<%= question.id %>">
+            <h5><b>
+              <%= stt += 1 %>. <%= question.question %>
+            </b>
+            </h5>
+            <% question.answers.each do |answer| %>
+              <div class="custom-control custom-radio">
+                <input type="radio" class="custom-control-input" id="answer<%= answer.id %>" name="answer<%= question.id %>" value = "<%= answer.id %>">
+                <label class="custom-control-label" for="answer<%= answer.id %>"><%= answer.content %></label>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+    <a class="btn btn-outline-success mb-5 m-auto w-auto" href="#"
+      data-toggle="modal" data-target="#confirmSumit">
+      <%= t "finish" %>
+    </a>
+  <% end %>
+</div>
+<div class="modal fade" id="confirmSumit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel"><%= t "complete_lesson" %></h5>
+        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body"><%= t "confirm_complete" %></div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary m-auto" type="button" data-dismiss="modal"><%= t "modal_logout.Cancel" %></button>
+        <%= button_tag t("finish"), class: "btn btn-outline-success mb-5 m-auto btn-finish-lesson" %>
+      </div>
+    </div>
+  </div>
+</div>
+<%= javascript_include_tag "count-down" %>

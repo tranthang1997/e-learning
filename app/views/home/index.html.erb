@@ -1,0 +1,108 @@
+<%= provide :title, t("home_page.title") %>
+<div class="container-fluid py-3">
+  <div class="row">
+    <div class="col-12 col-sm-12 col-md-4 user-summary">
+      <div id="accordion">
+        <div class="card">
+          <div class="card-header p-0" id="headingOne">
+            <h5 class="mb-0">
+              <button class="btn btn-link bg-success text-white d-block w-100" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                <%= t"home_page.Summary" %>
+              </button>
+            </h5>
+          </div>
+          <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+            <div class="card-body">
+              <div class="word-memmories"><%= t "home_page.Words_memorised" %>:
+                <% if @supports.count_word_learned == Settings.zero_records %>
+                  <%= @supports.count_word_learned %>
+                <% else %>
+                  <%= link_to view_word_path do %>
+                    <%= @supports.count_word_learned %>
+                  <% end %>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header p-0" id="headingTwo">
+            <h5 class="mb-0">
+              <button class="btn btn-link bg-success text-white collapsed d-block w-100" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                <%= t "home_page.Follower" %> (<%= @supports.user_followers.size %>):
+              </button>
+            </h5>
+          </div>
+          <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+            <div class="card-body">
+              <div class="list-follower">
+              <% if @supports.user_followers %>
+                <% @supports.user_followers.each do |follower| %>
+                  <div class="d-inline-block user-follow-item">
+                    <div class="d-flex">
+                      <span class="avatar">
+                        <%= image_tag follower.avatar, class: "rounded-circle mx-2", size: Settings.user.avatar_list_follow %>
+                      </span>
+                      <%= link_to user_path(follower) do %>
+                        <span class="name"><%= follower.name %></span>
+                      <% end %>
+                    </div>
+                  </div>
+                <% end %>
+              <% end %>
+            </div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header p-0" id="headingThree">
+            <h5 class="mb-0">
+              <button class="btn btn-link bg-success text-white collapsed d-block w-100" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                <%= t "home_page.Followed" %> (<%= @supports.user_followed.size %>):
+              </button>
+            </h5>
+          </div>
+          <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+            <div class="card-body">
+              <div class="list-followed">
+                <% if @supports.user_followed %>
+                  <% @supports.user_followed.each do |followed| %>
+                  <div class="d-inline-block user-follow-item">
+                    <div class="d-flex">
+                      <span class="avatar">
+                        <%= image_tag followed.avatar, class: "rounded-circle mx-2", size: Settings.user.avatar_list_follow %>
+                      </span>
+                      <%= link_to user_path(followed) do %>
+                        <span class="name"><%= followed.name %></span>
+                      <% end %>
+                    </div>
+                  </div>
+                  <% end %>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-sm-12 col-md-8 list-courses">
+      <h3 class="heading"><%= t "course.list" %></h3>
+      <div class="row">
+        <% @supports.list_courses.each do |course| %>
+          <div class="card col-12 col-sm-6 col-md-4 py-2">
+            <%= image_tag course.image, class: "card-img-top w-100" %>
+            <div class="card-body p-0">
+              <h5 class="card-title mt-2"><%= course.name %></h5>
+              <p class="card-text"><%= course.description %></p>
+              <div class="d-flex">
+                <%= link_to t("home_page.Word_List"), learn_words_path(course.id), class: "btn btn-success mx-1 w-50" %>
+                <%= link_to t("home_page.Start_Lesson"), do_lesson_path(course.id), class: "btn btn-success mx-1 w-50",
+                  data:{ confirm: t("lesson.confirm_lesson")}%>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

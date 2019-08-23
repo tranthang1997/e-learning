@@ -1,0 +1,48 @@
+<div class="row">
+  <div class="col-12">
+    <%= link_to new_admin_question_path, class: "btn btn-primary mb-3" do %>
+      <i class="fa fa-plus"></i>
+      <%= t "question.Create_question" %>
+    <% end %>
+    <div class="card shadow mb-4">
+      <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary"><%= t "question.list_question" %></h6>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-bordered w-100"cellspacing="0">
+            <tr>
+              <th><%= t "question.stt" %></th>
+              <th><%= t "question.word_name" %></th>
+              <th><%= t "question.name" %></th>
+              <th><%= t "question.action" %></th>
+            </tr>
+            <% stt = get_stt params[:page].to_i, Settings.questions.question_per_page %>
+            <% @questions.each do |question| %>
+            <tr>
+              <td class="stt text-center"><%= stt %></td>
+              <td><%= question.word_name %></td>
+              <td><%= question.question %></td>
+              <td>
+                <%= link_to admin_question_path(question) do %>
+                  <i class="fa fa-eye"></i>
+                <% end %>
+                <%= link_to edit_admin_question_path(question) do %>
+                  <i class="fa fa-edit"></i>
+                <% end %>
+                <%= link_to [:admin, question], method: "delete", data: {confirm: t("question.are_you_sure")} do %>
+                  <i class="fa fa-trash"></i>
+                <% end %>
+              </td>
+            </tr>
+            <% stt += 1 %>
+            <% end %>
+          </table>
+          <div class="pagination">
+            <%= paginate @questions %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

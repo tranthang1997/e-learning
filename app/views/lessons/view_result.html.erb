@@ -1,0 +1,36 @@
+<%= provide :title, t("lesson.view_result") %>
+<div class="card shadow mb-4 col-lg-10 col-md-10 col-sm-12 mt-5 m-auto">
+  <div class="card-header py-3">
+    <hr class="invisible">
+    <h6 class="m-auto font-weight-bold text-primary"><%= @course.name %></h6>
+    <br>
+    <h5><b><%= t "score" %> <%= @result.grade params[:result_id] %></b></h5>
+  </div>
+  <% unless @result.get_result(params[:result_id]).nil? %>
+    <div class="card-body text-gray-900">
+      <div class="box-part text-left">
+        <% stt = 0 %>
+        <% @result.get_result(params[:result_id]).each do |key, result| %>
+          <div class="question" data-question-id="<%= %>">
+            <h5><b>
+              <%= stt += 1 %>. <%= result["question"] %>
+            </b>
+            </h5>
+            <% result["answers"].each do |answer| %>
+              <div class="custom-control custom-radio">
+                <% if answer.id.to_i == result["answer_id"].to_i %>
+                  <input type="radio" class="custom-control-input" id="answer<%= answer.id %>" checked>
+                  <label class="custom-control-label" for="answer<%= answer.id %>"><%= answer.content %></label>
+                <% else %>
+                  <input type="radio" class="custom-control-input" id="answer<%= answer.id %>" disabled>
+                  <label class="custom-control-label" for="answer<%= answer.id %>"><%= answer.content %></label>
+                <% end %>
+              </div>
+            <% end %>
+            <label><%= t "lesson.correct_answer" %> <%= get_correct_answer result["correct_answer"] %></label>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</div>

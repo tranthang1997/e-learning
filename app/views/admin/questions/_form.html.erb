@@ -1,0 +1,24 @@
+<%= form_for [:admin, @question] do |f| %>
+  <div>
+    <%= render "shared/error_messages", object: f.object %>
+
+    <%= f.label :question %>
+    <%= f.text_field :question, class: "form-control" %>
+
+    <% if @question.id %>
+      <%= f.label :correct_answer %>
+      <%= f.select :correct_answer, options_for_select(convert_answers(@question.id), selected: @question.correct_answer), {}, class: "form-control" %>
+    <% end %>
+
+    <%= f.label :word_id %>
+    <%= f.select :word_id, options_for_select(convert_words, selected: @question.word_id), {}, class: "form-control" %>
+    <hr>
+    <%= f.fields_for :answers do |builder| %>
+      <%= render "admin/questions/answer_fields", f: builder %>
+    <% end %>
+    <%= link_to_add_fields t("question.Add_answer"), f, :answers %>
+  </div>
+  <div>
+    <%= f.submit yield(:button_text), class: "btn btn-primary my-2" %>
+  </div>
+<% end %>

@@ -1,0 +1,20 @@
+<%= form_for [:admin, @word] do |f| %>
+  <%= render "shared/error_messages", object: f.object %>
+
+  <%= f.label :name %>
+  <%= f.text_field :name, class: "form-control" %>
+
+  <%= f.label :speech %>
+  <%= f.text_field :speech, class: "form-control" %>
+
+  <%= f.label :meaning %>
+  <%= f.text_area :meaning, class: "form-control" %>
+
+  <%= f.label :example %>
+  <%= f.text_area :example, class: "form-control" %>
+
+  <%= f.label :course_id %>
+  <%= f.select :course_id, options_for_select(convert_courses, selected: @word.course_id), {}, class: "form-control" %>
+
+  <%= f.submit yield(:button_text), class: "btn btn-primary my-2" %>
+<% end %>

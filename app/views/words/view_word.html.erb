@@ -1,0 +1,33 @@
+<%= provide :title, t("word.learned") %>
+<div class="card shadow mb-4 col-lg-6 col-md-6 col-sm-12 mt-5 m-auto">
+  <div class="card-header py-3">
+    <hr class="invisible">
+    <h6 class="m-0 font-weight-bold text-primary"><%= t "word.learned" %></h6>
+  </div>
+  <% unless @learnings.empty? %>
+    <% @learnings.each do |learning| %>
+      <div class="card-body text-gray-900">
+        <div class="box-part text-center">
+          <i class="fa fa-credit-card fa-5x" aria-hidden="true"></i>
+          <div class="title">
+            <h1><b><%= learning.word_name %></b></h1>
+          </div>
+          <div class="text">
+            <label><b><%= learning.word_name %></b></label>
+            <label>(<%= learning.word_speech %>): </label>
+            <label><%= learning.word_meaning %></label>
+          </div>
+          <div class="text">
+            <%= t "word.example" %>: <span><%= learning.word_example %></span>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    <%= paginate @learnings %>
+    <hr class="invisible">
+  <% else %>
+    <div class="text m-auto">
+      <%= t "word.empty" %>
+    </div>
+  <% end %>
+</div>
